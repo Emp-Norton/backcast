@@ -1,7 +1,7 @@
 var VideoListEntryView = Backbone.View.extend({
 
-  initialize: function() { // added this
-    this.model.on('change', this.render, this);
+  initialize: function() { 
+    this.render()
   },
 
 
