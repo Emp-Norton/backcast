@@ -1,7 +1,8 @@
 var Videos = Backbone.Collection.extend({
   model: Video,
 
-  search: function() {
+  search: function(query) {
+    
   }, 
 
 
@@ -18,12 +19,14 @@ var Videos = Backbone.Collection.extend({
         window.videos = data;
       },
       error: function(data) {
-        console.error("Failed", data);
+        console.error('Failed', data);
       } 
      
     });
   }  
 
-  
-
 });
+
+
+
+// listenTo pointed at model or collection that triggers render on sync or change -- experiment a bit with this.

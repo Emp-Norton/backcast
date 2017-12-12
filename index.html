@@ -32,9 +32,16 @@
   <script>
     backboneReady(() => {
       new AppView();
-      window.videos = new Videos(exampleVideoData);
-      
+      $( document ).ready(function() {
+        $('#queryButton').on('click', function() {
+          var query = $('#queryField').val();
+          window.videos = new Videos().fetch(query);
+        });
+      });
+      //window.videos = new Videos(exampleVideoData);
     });
+
+    
   </script>
 
 </body>

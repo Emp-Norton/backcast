@@ -3,8 +3,13 @@ var AppView = Backbone.View.extend({
   el: '#app', 
 
   initialize: function() {
-    this.videos = new Videos(window.exampleVideoData);
-    this.render();
+    if (window.videos) {
+      this.videos = new Videos(window.videos);
+      this.render();
+    } else {
+      this.videos = new Videos(window.exampleVideoData);
+      this.render();
+    }
   },
 
 
