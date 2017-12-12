@@ -1,15 +1,15 @@
 var VideoListView = Backbone.View.extend({
     
-  el: '.list', // added this
+  el: '.list',  
   
   initialize: function() {
-    this.collection.on('change', this.render, this)
+    this.collection.on('change', this.render, this) // need a click listener for video selection? Test seems to imply so.
   },
   
   render: function() {
     this.$el.children().detach();
     this.$el.html(this.template());
-    this.collection.each(video => {
+    this.collection.forEach(video => {
       $('.video-list').append(new VideoListEntryView({model: video}).el)
     })
     return this;
