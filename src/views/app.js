@@ -1,36 +1,43 @@
 var AppView = Backbone.View.extend({
 
-  el: '#app', 
+  el: '#app',
 
   initialize: function() {
-    if (window.videos) {
-      this.videos = new Videos(window.videos);
-      this.render();
-    } else {
-      this.videos = new Videos(window.exampleVideoData);
-      this.render();
-    }
+    this.videos = new Videos();
+    this.listenTo(this.videos, 'sync', this.playFirst);
+    this.videos.search('Christmas');
+    this.render();
   },
 
-
+  playFirst: function() {
+    if (this.videos.length > 0) {
+      this.videos.at(0).select();
+    }
+  },
+  
   render: function() {
     this.$el.html(this.template());
 
-    var videoListView = new VideoListView({collection: this.videos});
-    videoListView.render();
-    
-    var searchView = new SearchView({collection: this.videos});
+    var searchView = new SearchView({
+      collection: this.videos
+    });
+
+    var videoListView = new VideoListView({
+      collection: this.videos,
+    });
+
+    var videoPlayerView = new VideoPlayerView({
+      model: this.videos.at(0),
+      collection: this.videos,
+    });
+
     searchView.render();
-    
-    var videoPlayer = new VideoPlayerView({collection: this.videos});
-    videoPlayer.render();
-    
+    videoListView.render();
+    videoPlayerView.render();
+
     return this;
   },
 
   template: templateURL('src/templates/app.html')
 
 });
-
-
-/// YTAPIK AIzaSyBoTNkyEbmnCYBgT4ZhCtlIz445CAeaBRo
