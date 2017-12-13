@@ -1,32 +1,25 @@
 var Videos = Backbone.Collection.extend({
+
+
   model: Video,
 
+  url: 'https://www.googleapis.com/youtube/v3/search',
+
   search: function(query) {
-    
-  }, 
-
-
-  fetch: function(query) { 
-    $.ajax({
-      url: 'https://www.googleapis.com/youtube/v3/search',
-      type: 'GET',
-      data: {'maxResults': '5',
-        key: window.YOUTUBE_API_KEY,
+    this.fetch({
+      data: {
         part: 'snippet',
+        key: window.YOUTUBE_API_KEY,
         q: query,
-        type: ''},
-      success: function(data) {
-        window.videos = data;
-      },
-      error: function(data) {
-        console.error('Failed', data);
-      } 
-     
+        maxResults: 5,
+        type: 'video',
+        videoEmbeddable: 'true'
+      }
     });
-  }  
+  },
 
+  parse: function(response) {
+    return response.items;
+  }
+  
 });
-
-
-
-// listenTo pointed at model or collection that triggers render on sync or change -- experiment a bit with this.
