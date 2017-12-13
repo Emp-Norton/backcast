@@ -7,7 +7,6 @@ var Video = Backbone.Model.extend({
 
   select: function(video) {
     this.trigger('select', this);
-    new VideoPlayerView({model: video}).render();
   }
 
 });
